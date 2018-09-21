@@ -21,8 +21,6 @@ x_test = x_test.reshape(x_test.shape[0], 28, 28, 1).astype('float32')
 x_train, x_test = x_train/255, x_test/255
 input_dim = (28, 28, 1)
 
-x_train, y_train = x_train[:1000], y_train[:1000]
-x_test, y_test = x_test[:500], y_test[:500]
 
 digit_indices = [np.where(y_train == i)[0] for i in range(10)]
 tr_pairs, tr_y = create_pairs(x_train, digit_indices)
@@ -62,10 +60,10 @@ mnist_model.fit([tr_pairs[:, 0], tr_pairs[:, 1]], tr_y,
           callbacks=[visualize_callback])
 
 
-# # test
+# test
 
-# pred = mnist_model.predict([te_pairs[:, 0], te_pairs[:, 1]])
-# te_acc = compute_accuracy(pred, te_y)
+pred = mnist_model.predict([te_pairs[:, 0], te_pairs[:, 1]])
+te_acc = compute_accuracy(pred, te_y)
 
-# print('* Accuracy on test set: %0.4f%%' % (100 * te_acc))
+print('* Accuracy on test set: %0.4f%%' % (100 * te_acc))
 
